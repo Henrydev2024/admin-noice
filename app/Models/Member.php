@@ -341,6 +341,13 @@ class Member extends Authenticatable implements JWTSubject
         $productType = data_get($params, 'product_type');
         $perPage = data_get($params, 'per_page', apiPaginate());
 
+        if ($from == null){
+            $from = Carbon::today()->startOfDay();
+        }
+        if ($to == null){
+            $to = Carbon::today()->endOfDay();
+        }
+
         $query = $this->when($memberName, function ($query) use ($memberName) {
             $query->where('name', 'LIKE', '%' . $memberName . '%');
         })

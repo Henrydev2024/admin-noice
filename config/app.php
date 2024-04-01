@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Providers\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -233,6 +234,7 @@ return [
 
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

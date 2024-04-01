@@ -70,7 +70,7 @@
                                 <td class="text-right">{{ moneyFormat($item->amount) }}</td>
                                 <td class="text-right">{!! $item->getWinLossText() !!}</td>
                                 <td class="text-center">{!! $item->getStatusText() !!}</td>
-                                <td class="text-left">{!! $item->getFsDetailText() !!}</td>
+                                <td class="text-left">{{ moneyFormat($item->commission_refund) }}</td>
                                 <td class="text-right">{{ moneyFormat($item->balance_before) }}</td>
                                 <td class="text-right">{{ moneyFormat($item->balance_after) }}</td>
                             </tr>

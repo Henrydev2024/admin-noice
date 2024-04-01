@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Exports\ReportExport;
 use App\Models\BetHistories;
 use App\Models\GameRecord;
 use App\Models\Member;
@@ -9,6 +10,7 @@ use App\Models\TransactionHistory;
 use App\Services\MemberService;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GameRecordsController extends AdminBaseController
 {
@@ -136,7 +138,12 @@ class GameRecordsController extends AdminBaseController
             $member->total_amount_win = $totalAmountWin;
             $member->total_amount_loss = $totalAmountLoss;
 
-            $member->total_fs_money = $totalFsSbo;
+//            $member->total_fs_money = $totalFsSbo;
+
+            $member->total_fs_money = abs($totalAmountWin - $totalAmountLoss)*0.0175;
+        }
+        if($request->excel == 1){
+            return Excel::download(new ReportExport($members), 'report.xlsx');
         }
 
         $viewData = [
@@ -171,9 +178,12 @@ class GameRecordsController extends AdminBaseController
             ->when($productType, function ($query) use ($productType) {
                 $query->where('product_type', $productType);
             });
-
+        $list_data = $transactionHistoryModel->orderBy(TransactionHistory::getTableName() . '.id', 'desc')->paginate($perPage);
+        foreach ($list_data as $val){
+            $val->commission_refund = $val->amount * 0.0175;
+        }
         $viewData = [
-            'data' => $transactionHistoryModel->orderBy(TransactionHistory::getTableName() . '.id', 'desc')->paginate($perPage),
+            'data' => $list_data,
             'params' => $request->all(),
         ];
 

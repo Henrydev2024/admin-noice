@@ -43,10 +43,12 @@
                             ]
                         ])
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <div class="input-group">
-                                <button type="submit" class="btn btn-primary">@lang('res.btn.search')</button>&nbsp;
+                                <input type="text" value="" name="page" id="page_size" hidden>
+                                <button type="submit" class="btn btn-primary" name="excel" value="0">@lang('res.btn.search')</button>&nbsp;
                                 <button type="reset" class="btn btn-warning" onclick="window.location.href='{{ route('admin.gamerecords.report') }}'">@lang('res.btn.reset')</button>
+                                <button type="submit" class="btn btn-success" style="margin-left: 10px" name="excel" value="1">Xuất excel</button>&nbsp;
                             </div>
                         </div>
                     </div>
@@ -104,3 +106,10 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentPage = document.querySelector('.pagination .page-item.active');
+        var currentPageNumber = currentPage.textContent.trim();
+        document.getElementById('page_size').value = currentPageNumber;
+    });
+</script>

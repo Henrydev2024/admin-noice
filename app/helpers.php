@@ -397,7 +397,7 @@ function convertGameType($type)
 if (!function_exists('apiPaginate')) {
     function apiPaginate()
     {
-        return getConst('API_PAGINATE', 15);
+        return getConst('API_PAGINATE', 100);
     }
 }
 

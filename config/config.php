@@ -36,9 +36,9 @@ return [
 
     // custom per page
     'custom_per_page' => [
-        15 => 15,
-        30 => 30,
         100 => 100,
+        200 => 200,
+        500 => 500,
     ],
 
     // Eeziepay

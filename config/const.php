@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'API_PAGINATE' => 15,
+    'API_PAGINATE' => 100,
     'ERROR_CODE' => [
         'NO_ERROR' => 0,
         'MEMBER_NOT_EXIST' => 1,

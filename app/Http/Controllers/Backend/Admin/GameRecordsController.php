@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Exports\ReportDetailExport;
 use App\Exports\ReportExport;
 use App\Models\BetHistories;
 use App\Models\GameRecord;
@@ -181,10 +182,17 @@ class GameRecordsController extends AdminBaseController
         $list_data = $transactionHistoryModel->orderBy(TransactionHistory::getTableName() . '.id', 'desc')->paginate($perPage);
         foreach ($list_data as $val){
             $val->commission_refund = $val->amount * 0.0175;
+            $val->game_provider_text = $val->getGameProviderText();
+            $val->product_type_text = $val->getProductTypeText();
+        }
+
+        if ($request->excel == 1){
+            return Excel::download(new ReportDetailExport($list_data), 'report-detail.xlsx');
         }
         $viewData = [
             'data' => $list_data,
             'params' => $request->all(),
+            'memberId' => $memberId,
         ];
 
         return view('admin.gamerecord.report_detail', $viewData);

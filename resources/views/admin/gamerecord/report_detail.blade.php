@@ -35,6 +35,10 @@
         <div class="card">
             <div class="card-body">
                 @include('layouts._per_page')
+                <form action="{{url('admin/gamerecords/report/detail/'.$memberId)}}" method="get" >
+                    <input type="text" value="" name="page" id="page_size" hidden>
+                    <button type="submit" class="btn btn-success" style="margin-left: 10px" name="excel" value="1">Xuất excel</button>&nbsp;
+                </form>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
@@ -106,3 +110,17 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentPage = document.querySelector('.pagination .page-item.active');
+        var currentPageNumber = currentPage.textContent.trim();
+        document.getElementById('page_size').value = currentPageNumber;
+
+        // var select = document.querySelector('.per_page');
+        // var inputPage = document.getElementById('page_size');
+        // select.addEventListener('change', function() {
+        //     // Gán giá trị của select vào input
+        //     inputPage.value = this.value;
+        // });
+    });
+</script>
